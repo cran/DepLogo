@@ -10,8 +10,8 @@ getPWM(part)
 \item{part}{the DLData object}
 }
 \value{
-The position weight matrix, where columns correspond to positions
-  (columns of the DLData$data slot) and rows to symbols.
+the position weight matrix, where columns correspond to positions
+  (columns of the DLData$data slot) and rows to symbols
 }
 \description{
 Determines the position weight matrix from a DLData object as relative frequency of symbols

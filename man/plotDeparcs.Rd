@@ -2,10 +2,16 @@
 % Please edit documentation in R/DepLogoR.R
 \name{plotDeparcs}
 \alias{plotDeparcs}
-\title{Plot a graph representation of dependency values.}
+\title{Plots a graph representation of dependency values}
 \usage{
-plotDeparcs(data, axis.at.bottom = TRUE, add.legend = TRUE,
-  show.pvals = FALSE, axis.labels = NULL, threshold = 0.1)
+plotDeparcs(
+  data,
+  axis.at.bottom = TRUE,
+  add.legend = TRUE,
+  show.pvals = FALSE,
+  axis.labels = NULL,
+  threshold = 0.1
+)
 }
 \arguments{
 \item{data}{the \link{DLData} object containing the data}

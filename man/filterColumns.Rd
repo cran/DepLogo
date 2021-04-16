@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{filterColumns}
 \alias{filterColumns}
-\title{Filter data columns by some filter function}
+\title{Filters data columns by some filter function}
 \usage{
 filterColumns(data, filter.fun)
 }
@@ -19,7 +19,7 @@ Filters the columns of the input data, i.e., positions of input sequences,
 by a filter function that, given a \link{DLData} object, returns a list containing
 i) as element \code{$selected} a vector with entries \code{TRUE} for every column 
 that should be retained in the filtered data and ii) as element \code{$range} the
-range of values obtained for the filtering criterion
+range of values obtained for the filtering criterion.
 }
 \examples{
 # read data and create DLData object

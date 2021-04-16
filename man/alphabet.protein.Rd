@@ -4,7 +4,9 @@
 \name{alphabet.protein}
 \alias{alphabet.protein}
 \title{Amino acid alphabet}
-\format{An object of class \code{list} of length 2.}
+\format{
+An object of class \code{list} of length 2.
+}
 \usage{
 alphabet.protein
 }

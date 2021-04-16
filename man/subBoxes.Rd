@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{subBoxes}
 \alias{subBoxes}
-\title{Plot weights as boxplots}
+\title{Plots weights as boxplots}
 \usage{
 subBoxes(sub.parts, range, axis.above = TRUE, axis.below = TRUE)
 }

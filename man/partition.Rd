@@ -2,15 +2,22 @@
 % Please edit documentation in R/DepLogoR.R
 \name{partition}
 \alias{partition}
-\title{Parition data by most inter-dependent positions}
+\title{Paritions data by most inter-dependent positions}
 \usage{
-partition(data, minElements = 10, threshold = 0.1, numBestForSorting = 3,
-  maxNum = 6, sortByWeights = NULL)
+partition(
+  data,
+  minElements = 10,
+  threshold = 0.1,
+  numBestForSorting = 3,
+  maxNum = 6,
+  sortByWeights = NULL,
+  partition.by = NULL
+)
 }
 \arguments{
 \item{data}{the data as \link{DLData} object}
 
-\item{minElements}{the minimum number of elements to perform a further split.}
+\item{minElements}{the minimum number of elements to perform a further split}
 
 \item{threshold}{the threshold on the average mutual information value}
 
@@ -22,7 +29,9 @@ considered}
 \item{sortByWeights}{if \code{TRUE}, partitions are ordered by their average
 weight value, if \code{false} by frequency of symbols at the partitioning
 position otherwise. If \code{NULL}, the \code{$sortByWeights} value of the
-\link{DLData} object is used.}
+\link{DLData} object is used}
+
+\item{partition.by}{specify fixed positions to partition by}
 }
 \value{
 the partitions as list of \link{DLData} objects

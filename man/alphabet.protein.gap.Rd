@@ -4,7 +4,9 @@
 \name{alphabet.protein.gap}
 \alias{alphabet.protein.gap}
 \title{Amino acid alphabet with gaps}
-\format{An object of class \code{list} of length 2.}
+\format{
+An object of class \code{list} of length 2.
+}
 \usage{
 alphabet.protein.gap
 }

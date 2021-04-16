@@ -4,7 +4,9 @@
 \name{alphabet.dna.gap}
 \alias{alphabet.dna.gap}
 \title{DNA alphabet with gaps}
-\format{An object of class \code{list} of length 2.}
+\format{
+An object of class \code{list} of length 2.
+}
 \usage{
 alphabet.dna.gap
 }

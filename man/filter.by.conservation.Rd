@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{filter.by.conservation}
 \alias{filter.by.conservation}
-\title{Filter columns (sequence positions) by conservation}
+\title{Filters columns (sequence positions) by conservation}
 \usage{
 filter.by.conservation(relative.ic)
 }

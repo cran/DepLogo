@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{filter.by.gaps}
 \alias{filter.by.gaps}
-\title{Filter columns (sequence positions) by gaps}
+\title{Filters columns (sequence positions) by gaps}
 \usage{
 filter.by.gaps(percent.gap)
 }
@@ -14,7 +14,7 @@ function that, given a \link{DLData} object, returns \code{TRUE}
   for every column that does not exceed the specified number of gaps
 }
 \description{
-Filter columns (sequence positions) by gaps
+Filters columns (sequence positions) by gaps
 }
 \examples{
 fun <- filter.by.gaps(percent.gap = 0.1)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{suggestColors}
 \alias{suggestColors}
-\title{Suggest colors for symbols}
+\title{Suggests colors for symbols}
 \usage{
 suggestColors(data)
 }

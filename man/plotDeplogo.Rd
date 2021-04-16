@@ -4,12 +4,27 @@
 \alias{plotDeplogo}
 \title{Plot a dependency logo}
 \usage{
-plotDeplogo(data, dep.fun = plotDeparcs, block.fun = deprects,
-  summary.fun = logo, weight.fun = NULL, chunks = NULL,
-  chunk.height = 800, summary.height = 100, minPercent = 0.03,
-  threshold = 0.1, numBestForSorting = 3, maxNum = 6,
-  sortByWeights = NULL, dep.fun.legend = TRUE,
-  show.dependency.pvals = FALSE, axis.labels = NULL, ...)
+plotDeplogo(
+  data,
+  dep.fun = plotDeparcs,
+  block.fun = deprects,
+  summary.fun = logo,
+  weight.fun = NULL,
+  chunks = NULL,
+  chunk.height = 800,
+  summary.height = 100,
+  minPercent = 0.03,
+  threshold = 0.1,
+  numBestForSorting = 3,
+  maxNum = 6,
+  sortByWeights = NULL,
+  dep.fun.legend = TRUE,
+  show.dependency.pvals = FALSE,
+  axis.labels = NULL,
+  weight.ratio = 5,
+  partition.by = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{the data, currently implemented for \link{DLData} objects}
@@ -27,27 +42,27 @@ plot for (one chunk of) the data}
 \code{weights} values of the sequences within one partition}
 
 \item{chunks}{the size of chunks the data is split into. The sum of the chunk
-sizes must not be greater than the number of data points in data. The
-default value of NULL corresponds to one chunk containing all data points.}
+sizes must not be greater than the number of data points in data; The
+default value of NULL corresponds to one chunk containing all data points}
 
 \item{chunk.height}{the (relative) height of the parts of the plot
-representing each of the chunks, one height for each chunk.}
+representing each of the chunks, one height for each chunk}
 
 \item{summary.height}{the (relative) height of the block summaries in the
-plot.}
+plot}
 
 \item{minPercent}{the minimum percentage of the (sub) data set that may
-constitute its own partition in the dependency logo.}
+constitute its own partition in the dependency logo}
 
-\item{threshold}{the threshold on the dependency value for further splits.}
+\item{threshold}{the threshold on the dependency value for further splits}
 
 \item{numBestForSorting}{the number of dependencies between position i and
-all other positions when computing the dependency value of position i.}
+all other positions when computing the dependency value of position i}
 
 \item{maxNum}{the maximum number of splits allowed}
 
 \item{sortByWeights}{are partitions sorted by their average weight
-(descending).}
+(descending)}
 
 \item{dep.fun.legend}{if \code{TRUE}, a legend of the color scale used for
 plotting the dependency values in \code{dep.fun} is added to the plot}
@@ -58,6 +73,10 @@ dependency values in \code{dep.fun} instead of mutual information values}
 \item{axis.labels}{labels for the x-axis, vector of the same length as the
 individual sequences}
 
+\item{weight.ratio}{the factor by which the plotting width for the main plot is larger than for \code{weight.fun}}
+
+\item{partition.by}{specify fixed positions to partition by}
+
 \item{...}{forwarded to the high-level \code{plot} that contains the blocks
 plotted by \code{block.fun}}
 }
@@ -66,7 +85,7 @@ a list of \link{DLData} objects with the partitions created for the
   dependency logo
 }
 \description{
-Plots a dependency logo.
+Plots a dependency logo
 }
 \details{
 The function \code{dep.fun} provided for plotting the representation of

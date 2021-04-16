@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{replaceColors}
 \alias{replaceColors}
-\title{Replace colors in \link{DLData} object}
+\title{Replaces colors in \link{DLData} object}
 \usage{
 replaceColors(data, colors)
 }
@@ -15,7 +15,7 @@ replaceColors(data, colors)
 the modified \link{DLData} object
 }
 \description{
-Replace colors in \link{DLData} object
+Replaces colors in \link{DLData} object
 }
 \examples{
 # read data and create DLData object

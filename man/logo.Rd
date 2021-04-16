@@ -17,7 +17,7 @@ logo(part, yoff, ic.scale = TRUE)
 the vertical (y) offset after this plot
 }
 \description{
-Plot a representation of a set of sequences as a sequence logo
+Plots a representation of a set of sequences as a sequence logo
 }
 \details{
 This function is a low-level plotting function (using \link[graphics]{polygon}, internally).

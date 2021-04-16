@@ -17,7 +17,7 @@ deprects(part, yoff, ic.scale = TRUE)
 the vertical (y) offset after this plot
 }
 \description{
-Plot a representation of a set of sequences by rectangles of (scaled) averaged color values of the symbols at each position.
+Plots a representation of a set of sequences by rectangles of (scaled) averaged color values of the symbols at each position
 }
 \details{
 This function is a low-level plotting function (using \link[graphics]{rect}, internally).

@@ -8,15 +8,15 @@ getDeps(data, ...)
 }
 \arguments{
 \item{data}{the data for computing mutual information. Either a DLData object
-or a data.frame. In the latter case, the symbols of the alphabet must be
-provided as a second parameter.}
+or a data.frame; In the latter case, the symbols of the alphabet must be
+provided as a second parameter}
 
 \item{...}{the symbols of the alphabet as character vector, only if data is a
 data.frame}
 }
 \value{
-A matrix of the mutual information values, where the diagonal is
-  fixed to zero.
+a matrix of the mutual information values, where the diagonal is
+  fixed to zero
 }
 \description{
 Computes the dependencies (as measures by mutual information) between all

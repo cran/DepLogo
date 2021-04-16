@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{subLines}
 \alias{subLines}
-\title{Plot weights as lines}
+\title{Plots weights as lines}
 \usage{
 subLines(sub.parts, range, axis.above = TRUE, axis.below = TRUE)
 }

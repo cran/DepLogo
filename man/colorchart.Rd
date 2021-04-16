@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{colorchart}
 \alias{colorchart}
-\title{Plot a colorchart representation of a set of sequences.}
+\title{Plots a colorchart representation of a set of sequences}
 \usage{
 colorchart(part, yoff, ic.scale = TRUE)
 }

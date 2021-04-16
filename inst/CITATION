@@ -1,0 +1,11 @@
+bibentry(
+bibtype="article",
+title="DepLogo: visualizing sequence dependencies in R",
+author=c(person("Jan","Grau"),person("Martin","Nettling"),person("Jens","Keilwagen")),
+year="2019",
+doi="10.1093/bioinformatics/btz507",
+volume="35",
+issue="22",
+pages="4812-4814",
+journal="Bioinformatics"
+)

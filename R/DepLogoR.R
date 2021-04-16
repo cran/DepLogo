@@ -5,8 +5,8 @@
 #'   
 #' @param part the DLData object
 #'   
-#' @return The position weight matrix, where columns correspond to positions
-#'   (columns of the DLData$data slot) and rows to symbols.
+#' @return the position weight matrix, where columns correspond to positions
+#'   (columns of the DLData$data slot) and rows to symbols
 #' @export
 #' @author Jan Grau <grau@informatik.uni-halle.de>
 #'   
@@ -51,7 +51,7 @@ getICScale <- function(column){
 	sqrt(x = ic/max)
 }
 
-#' Parition data by most inter-dependent positions
+#' Paritions data by most inter-dependent positions
 #' 
 #' Partitions \code{data} by the nucleotides at the most inter-dependent
 #' positions as measures by pairwise mutual information. Paritioning is
@@ -65,7 +65,7 @@ getICScale <- function(column){
 #' \code{minElements} sequences.
 #' 
 #' @param data the data as \link{DLData} object
-#' @param minElements the minimum number of elements to perform a further split.
+#' @param minElements the minimum number of elements to perform a further split
 #' @param threshold the threshold on the average mutual information value
 #' @param numBestForSorting the number of dependencies to other positions
 #'   considered
@@ -73,7 +73,8 @@ getICScale <- function(column){
 #' @param sortByWeights if \code{TRUE}, partitions are ordered by their average
 #'   weight value, if \code{false} by frequency of symbols at the partitioning
 #'   position otherwise. If \code{NULL}, the \code{$sortByWeights} value of the
-#'   \link{DLData} object is used.
+#'   \link{DLData} object is used
+#' @param partition.by specify fixed positions to partition by
 #'   
 #' @return the partitions as list of \link{DLData} objects
 #' @export
@@ -98,7 +99,8 @@ partition <- function(
 	threshold = 0.1,
 	numBestForSorting = 3,
 	maxNum = 6,
-	sortByWeights = NULL){
+	sortByWeights = NULL,
+	partition.by = NULL){
 	UseMethod("partition", data)
 }
 
@@ -108,20 +110,30 @@ partition.DLData<-function(
 	threshold = 0.1,
 	numBestForSorting = 3,
 	maxNum = 6,
-	sortByWeights = NULL){
+	sortByWeights = NULL,
+	partition.by = NULL){
 	if( is.null(sortByWeights)){
 		sortByWeights <- data$sortByWeights;
 	}
 
-	temp <- partitionRecursive(data = data$data,
-							   minElements = minElements,
-							   threshold = threshold,
-							   numBestForSorting = numBestForSorting,
-							   maxNum = maxNum,
-							   sortByWeights = sortByWeights,
-							   alphabet = data$alphabet$chars,
-							   exclude = rep(FALSE, ncol(data$data) - 1))
-	
+	if(is.null(partition.by)){
+		temp <- partitionRecursive(data = data$data,
+								   minElements = minElements,
+								   threshold = threshold,
+								   numBestForSorting = numBestForSorting,
+								   maxNum = maxNum,
+								   sortByWeights = sortByWeights,
+								   alphabet = data$alphabet$chars,
+								   exclude = rep(FALSE, ncol(data$data) - 1))
+	}else{
+		temp <- split(x=data$data, f=data$data[, partition.by], drop=TRUE)
+		temp <- joinSmall(partSort = temp, minElements = minElements, sortByWeights = FALSE)
+		if(sortByWeights){
+			ws <- sapply(temp,function(a){mean(a$weights)})
+			o <- order(ws, decreasing = TRUE)
+			temp <- temp[ o ]
+		}
+	}
 	lapply(temp, function(a){
 		li <- list(data = a, alphabet = data$alphabet, sortByWeights = sortByWeights, axis.labels = data$axis.labels)
 		class(li) <- "DLData"
@@ -261,13 +273,13 @@ joinSmall <- function(partSort, minElements, sortByWeights){
 #' 
 #' @title Compute dependencies between positions
 #' @param data the data for computing mutual information. Either a DLData object
-#'   or a data.frame. In the latter case, the symbols of the alphabet must be
-#'   provided as a second parameter.
+#'   or a data.frame; In the latter case, the symbols of the alphabet must be
+#'   provided as a second parameter
 #' @param ... the symbols of the alphabet as character vector, only if data is a
 #'   data.frame
 #'   
-#' @return A matrix of the mutual information values, where the diagonal is
-#'   fixed to zero.
+#' @return a matrix of the mutual information values, where the diagonal is
+#'   fixed to zero
 #' @export
 #' @author Jan Grau <grau@informatik.uni-halle.de>
 #' 
@@ -390,7 +402,7 @@ addLegend <- function(minp, maxp, minp.col, maxp.col, axis.at.bottom = TRUE, pva
 
 
 
-#' Plot a matrix representation of dependency values.
+#' Plots a matrix representation of dependency values
 #' 
 #' Plots a representation of dependency values as a triangular matrix rotated by
 #' 45 degrees. Internally, dependency values are computed using \link{getDeps}
@@ -488,7 +500,7 @@ plotDepmatrix <- function(data,
 	}
 }
 
-#' Plot a graph representation of dependency values.
+#' Plots a graph representation of dependency values
 #' 
 #' Plots a representation of dependency values as arcs between the sequence
 #' positions. Internally, dependency values are computed using \link{getDeps} on
@@ -598,7 +610,7 @@ plotDeparcs<-function(data,
 
 
 
-#' Plot a colorchart representation of a set of sequences.
+#' Plots a colorchart representation of a set of sequences
 #' 
 #' This function is a low-level plotting function (using \link[graphics]{image} with \code{add=TRUE}, internally).
 #'
@@ -633,7 +645,7 @@ colorchart<-function(part, yoff, ic.scale = TRUE){
 	yoff - nrow(mat)
 }
 
-#' Plot a representation of a set of sequences by rectangles of (scaled) averaged color values of the symbols at each position.
+#' Plots a representation of a set of sequences by rectangles of (scaled) averaged color values of the symbols at each position
 #' 
 #' This function is a low-level plotting function (using \link[graphics]{rect}, internally).
 #'
@@ -668,7 +680,7 @@ deprects<-function(part, yoff, ic.scale = TRUE){
 	yoff - size
 }
 
-#' Plot a representation of a set of sequences as a sequence logo
+#' Plots a representation of a set of sequences as a sequence logo
 #' 
 #' This function is a low-level plotting function (using \link[graphics]{polygon}, internally).
 #'
@@ -736,7 +748,7 @@ logo <- function(part, yoff, ic.scale = TRUE){
 #' Plots blocks of data
 #' 
 #' Plots the blocks of data in \code{data} by successive, vertically arranged sub-plots of the function provided as \code{block.fun}.
-#' If \code{data} is a single \link{DLData} object, one block is plotted. Further arguments are provided to \code{block.fun}
+#' If \code{data} is a single \link{DLData} object, one block is plotted. Further arguments are provided to \code{block.fun}.
 #'
 #' @param data the data, a single \link{DLData} object or a list of \code{DLData} objects
 #' @param show.number  if \code{true}, the number of sequences (in total) in data is displayed on the left side of the plot
@@ -795,7 +807,7 @@ plotBlocks.list <- function(data, show.number = TRUE, block.fun = deprects, ic.s
 }
 
 
-#' Plots a dependency logo.
+#' Plots a dependency logo
 #' 
 #' The function \code{dep.fun} provided for plotting the representation of
 #' dependencies is currently implemented in \link{plotDeparcs} and
@@ -827,26 +839,28 @@ plotBlocks.list <- function(data, show.number = TRUE, block.fun = deprects, ic.s
 #' @param weight.fun the function for plotting a representation of the
 #'   \code{weights} values of the sequences within one partition
 #' @param chunks the size of chunks the data is split into. The sum of the chunk
-#'   sizes must not be greater than the number of data points in data. The
-#'   default value of NULL corresponds to one chunk containing all data points.
+#'   sizes must not be greater than the number of data points in data; The
+#'   default value of NULL corresponds to one chunk containing all data points
 #' @param chunk.height the (relative) height of the parts of the plot
-#'   representing each of the chunks, one height for each chunk.
+#'   representing each of the chunks, one height for each chunk
 #' @param summary.height the (relative) height of the block summaries in the
-#'   plot.
+#'   plot
 #' @param minPercent the minimum percentage of the (sub) data set that may
-#'   constitute its own partition in the dependency logo.
-#' @param threshold the threshold on the dependency value for further splits.
+#'   constitute its own partition in the dependency logo
+#' @param threshold the threshold on the dependency value for further splits
 #' @param numBestForSorting the number of dependencies between position i and
-#'   all other positions when computing the dependency value of position i.
+#'   all other positions when computing the dependency value of position i
 #' @param maxNum the maximum number of splits allowed
 #' @param sortByWeights are partitions sorted by their average weight
-#'   (descending).
+#'   (descending)
 #' @param dep.fun.legend if \code{TRUE}, a legend of the color scale used for
 #'   plotting the dependency values in \code{dep.fun} is added to the plot
 #' @param show.dependency.pvals is \code{TRUE}, p-values are used for plotting
 #'   dependency values in \code{dep.fun} instead of mutual information values
 #' @param axis.labels labels for the x-axis, vector of the same length as the
 #'   individual sequences
+#' @param weight.ratio the factor by which the plotting width for the main plot is larger than for \code{weight.fun}
+#' @param partition.by specify fixed positions to partition by
 #' @param ... forwarded to the high-level \code{plot} that contains the blocks
 #'   plotted by \code{block.fun}
 #'   
@@ -888,6 +902,8 @@ plotDeplogo<-function(data,
 					  dep.fun.legend = TRUE,
 					  show.dependency.pvals = FALSE,
 					  axis.labels = NULL,
+					  weight.ratio = 5,
+					  partition.by = NULL,
 					  ...){
 	UseMethod("plotDeplogo", data)
 }
@@ -907,7 +923,10 @@ plotDeplogo.DLData<-function(data,
 							sortByWeights = NULL,
 							dep.fun.legend = TRUE,
 							show.dependency.pvals = FALSE,
-							axis.labels = NULL, ...){
+							axis.labels = NULL, 
+							weight.ratio = 5,
+							partition.by = NULL,
+							...){
 	
 	if(is.null(chunks)){
 		chunks <- nrow(data$data)
@@ -948,7 +967,7 @@ plotDeplogo.DLData<-function(data,
 	par(mar = c(2, 2.5, 0, ifelse(!is.null(weight.fun), 0, 1)))
 	
 	if(!is.null(weight.fun)){
-		layout(mat = matrix(1:(2 * numPlots), ncol=2), widths = c(ncol(data$data) - 1, (ncol(data$data) - 1)/5), heights = height)
+		layout(mat = matrix(1:(2 * numPlots), ncol=2), widths = c(ncol(data$data) - 1, (ncol(data$data) - 1)/weight.ratio), heights = height)
 	}else{
 		layout(mat = matrix(1:numPlots, ncol = 1), widths = c(1), heights = height)
 	}
@@ -959,7 +978,7 @@ plotDeplogo.DLData<-function(data,
 	w.li <- list()
 	sapply(1:length(parts), function(i){
 		sub.parts <- partition.DLData(data = parts[[i]], minElements = nrow(parts[[i]]$data) * minPercent,
-							 threshold = threshold, numBestForSorting = numBestForSorting, maxNum = maxNum)
+							 threshold = threshold, numBestForSorting = numBestForSorting, maxNum = maxNum, partition.by = partition.by)
 
 		plotBlocks(data = sub.parts, show.number = TRUE, block.fun = block.fun, ic.scale = TRUE, add = FALSE, ...)
 		plotBlocks(data = parts[[i]], show.number = FALSE, block.fun = summary.fun, ic.scale = TRUE, add = FALSE, ... )
@@ -995,7 +1014,7 @@ plotDeplogo.DLData<-function(data,
 
 
 
-#' Plot weights as lines
+#' Plots weights as lines
 #' 
 #' Plots a representation of the weights of a list of \link{DLData} objects.
 #' Each entry of the list is shown as an independent line with the median value
@@ -1035,7 +1054,7 @@ subLines <- function(sub.parts, range, axis.above = TRUE, axis.below = TRUE){
 	}
 }
 
-#' Plot weights as boxplots
+#' Plots weights as boxplots
 #' 
 #' Plots a representation of the weights of a list of \link{DLData} objects.
 #' Each entry of the list is shown as an independent boxplot.
@@ -1088,7 +1107,7 @@ dim.DLData <- function(x){
 
 #' Creates a new \code{DLData} object from a set of input sequences.
 #' 
-#' Sequences may either be provided as a "character" vector or as a
+#' Sequences may either be provided as a \code{character} vector or as a
 #' \code{data.frame}. All symbols occurring in these sequences need to be
 #' defined and assigned to colors, which are used for plotting later. Colors do
 #' not need to be unique, but symbols with identical colors may become
@@ -1099,7 +1118,7 @@ dim.DLData <- function(x){
 #' \code{chunks} parameter of \code{plotDeplogo}).
 #' 
 #' @title Create \code{DLData} object
-#' @param sequences the input sequences, may be provided as i) "character" 
+#' @param sequences the input sequences, may be provided as i) \code{character}
 #'   vector or ii) a \code{data.frame} with sequences organized in rows and one 
 #'   symbol per column
 #' @param weights weights associated with the sequences, numeric vector of the 
@@ -1248,7 +1267,7 @@ summary.DLData <- function(object, delete.gaps = FALSE, ...){
 
 
 
-#' Filter columns (sequence positions) by gaps
+#' Filters columns (sequence positions) by gaps
 #'
 #' @param percent.gap the maximum fraction of gaps allowed to retain a column
 #'
@@ -1268,7 +1287,7 @@ filter.by.gaps <- function(percent.gap){
 }
 
 
-#' Filter columns (sequence positions) by conservation
+#' Filters columns (sequence positions) by conservation
 #' 
 #' Filters columns based on the relative information content of each column
 #' which is the standard information content normalized to the interval [0,1],
@@ -1294,7 +1313,7 @@ filter.by.conservation <- function(relative.ic){
 	}
 }
 
-#' Filter columns (sequence positions) by dependency
+#' Filters columns (sequence positions) by dependency
 #' 
 #' Filters columns based on the average or maximum mutual information of a column
 #' to all other columns. Mutual information is normalized to to interval
@@ -1325,13 +1344,13 @@ filter.by.dependencies <- function(mi.threshold, use.max = FALSE){
 }
 
 
-#' Filter data columns by some filter function
+#' Filters data columns by some filter function
 #'
 #' Filters the columns of the input data, i.e., positions of input sequences,
 #' by a filter function that, given a \link{DLData} object, returns a list containing
 #' i) as element \code{$selected} a vector with entries \code{TRUE} for every column 
 #' that should be retained in the filtered data and ii) as element \code{$range} the
-#' range of values obtained for the filtering criterion
+#' range of values obtained for the filtering criterion.
 #'
 #' @param data the data as \link{DLData} object
 #' @param filter.fun the filter function
@@ -1378,7 +1397,7 @@ filterColumns.DLData<-function(data, filter.fun){
 
 
 
-#' Suggest colors for symbols
+#' Suggests colors for symbols
 #' 
 #' Suggests colors for the symbols in \code{data} based on the co-occurrence of
 #' symbols at common positions, weighted by the dependency values at those positions.
@@ -1433,7 +1452,7 @@ suggestColors.DLData <- function(data){
 }
 
 
-#' Replace colors in \link{DLData} object
+#' Replaces colors in \link{DLData} object
 #'
 #' @param data the data
 #' @param colors the new colors

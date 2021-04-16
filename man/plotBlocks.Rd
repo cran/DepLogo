@@ -4,8 +4,14 @@
 \alias{plotBlocks}
 \title{Plots blocks of data}
 \usage{
-plotBlocks(data, show.number = TRUE, block.fun = deprects,
-  ic.scale = TRUE, add = FALSE, ...)
+plotBlocks(
+  data,
+  show.number = TRUE,
+  block.fun = deprects,
+  ic.scale = TRUE,
+  add = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{the data, a single \link{DLData} object or a list of \code{DLData} objects}
@@ -22,7 +28,7 @@ plotBlocks(data, show.number = TRUE, block.fun = deprects,
 }
 \description{
 Plots the blocks of data in \code{data} by successive, vertically arranged sub-plots of the function provided as \code{block.fun}.
-If \code{data} is a single \link{DLData} object, one block is plotted. Further arguments are provided to \code{block.fun}
+If \code{data} is a single \link{DLData} object, one block is plotted. Further arguments are provided to \code{block.fun}.
 }
 \examples{
 # read data and create DLData object

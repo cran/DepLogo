@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepLogoR.R
 \name{filter.by.dependencies}
 \alias{filter.by.dependencies}
-\title{Filter columns (sequence positions) by dependency}
+\title{Filters columns (sequence positions) by dependency}
 \usage{
 filter.by.dependencies(mi.threshold, use.max = FALSE)
 }

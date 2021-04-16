@@ -4,12 +4,18 @@
 \alias{DLData}
 \title{Create \code{DLData} object}
 \usage{
-DLData(sequences, weights = NULL, symbols = alphabet.dna$alphabet,
-  colors = alphabet.dna$colors, delim = "",
-  sortByWeights = !is.null(weights), axis.labels = NULL)
+DLData(
+  sequences,
+  weights = NULL,
+  symbols = alphabet.dna$alphabet,
+  colors = alphabet.dna$colors,
+  delim = "",
+  sortByWeights = !is.null(weights),
+  axis.labels = NULL
+)
 }
 \arguments{
-\item{sequences}{the input sequences, may be provided as i) "character" 
+\item{sequences}{the input sequences, may be provided as i) \code{character}
 vector or ii) a \code{data.frame} with sequences organized in rows and one 
 symbol per column}
 
@@ -36,7 +42,7 @@ the \code{DLData} object
 Creates a new \code{DLData} object from a set of input sequences.
 }
 \details{
-Sequences may either be provided as a "character" vector or as a
+Sequences may either be provided as a \code{character} vector or as a
 \code{data.frame}. All symbols occurring in these sequences need to be
 defined and assigned to colors, which are used for plotting later. Colors do
 not need to be unique, but symbols with identical colors may become
