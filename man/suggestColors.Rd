@@ -2,9 +2,12 @@
 % Please edit documentation in R/DepLogoR.R
 \name{suggestColors}
 \alias{suggestColors}
+\alias{suggestColors.DLData}
 \title{Suggests colors for symbols}
 \usage{
 suggestColors(data)
+
+\method{suggestColors}{DLData}(data)
 }
 \arguments{
 \item{data}{the data}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/DepLogoR.R
 \name{replaceColors}
 \alias{replaceColors}
+\alias{replaceColors.DLData}
 \title{Replaces colors in \link{DLData} object}
 \usage{
 replaceColors(data, colors)
+
+\method{replaceColors}{DLData}(data, colors)
 }
 \arguments{
 \item{data}{the data}

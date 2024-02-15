@@ -2,9 +2,29 @@
 % Please edit documentation in R/DepLogoR.R
 \name{plotBlocks}
 \alias{plotBlocks}
+\alias{plotBlocks.DLData}
+\alias{plotBlocks.list}
 \title{Plots blocks of data}
 \usage{
 plotBlocks(
+  data,
+  show.number = TRUE,
+  block.fun = deprects,
+  ic.scale = TRUE,
+  add = FALSE,
+  ...
+)
+
+\method{plotBlocks}{DLData}(
+  data,
+  show.number = TRUE,
+  block.fun = deprects,
+  ic.scale = TRUE,
+  add = FALSE,
+  ...
+)
+
+\method{plotBlocks}{list}(
   data,
   show.number = TRUE,
   block.fun = deprects,

@@ -1,4 +1,3 @@
-exportClasses(DLData,Alphabet);
 export(DLData,getDeps,getPWM,plotDeplogo,plotDepmatrix,plotDeparcs,colorchart,deprects,logo,subLines,subBoxes,Alphabet,plotBlocks,partition,filterColumns,suggestColors,replaceColors,revcom,filter.by.gaps,filter.by.conservation,filter.by.dependencies,alphabet.dna,alphabet.dna.gap,alphabet.rna,alphabet.rna.gap,alphabet.protein,alphabet.protein.gap,summary.DLData);
 S3method(getDeps,DLData);
 S3method(getDeps,data.frame);

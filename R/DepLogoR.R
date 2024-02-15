@@ -17,6 +17,8 @@ getPWM <- function(part){
 	UseMethod("getPWM", part)
 }
 
+#' @export
+#' @rdname getPWM
 getPWM.DLData <- function(part){
 	alphabet <- part$alphabet$chars
 	part <- part$data[, -ncol(x = part$data)]
@@ -104,6 +106,8 @@ partition <- function(
 	UseMethod("partition", data)
 }
 
+#' @export
+#' @rdname partition
 partition.DLData<-function(
 	data,
 	minElements = 10,
@@ -164,7 +168,7 @@ partitionRecursive <- function(data,
 		}else{
 			exclude[best] <- TRUE
 			
-			partSort <- partition.2(sortTemp = sortTemp, curr = best, minElements = minElements, sortByWeights = sortByWeights)
+			partSort <- partition_2(sortTemp = sortTemp, curr = best, minElements = minElements, sortByWeights = sortByWeights)
 			
 			kls <- deps[best,]/nrow(sortTemp)
 			o2 <- order(kls, decreasing = TRUE)
@@ -175,7 +179,7 @@ partitionRecursive <- function(data,
 
 				li <- list();
 				for(i in 1:length(partSort)){
-					temp2 <- partition.2(sortTemp = partSort[[i]], curr = secpos, minElements = minElements, sortByWeights = sortByWeights)
+					temp2 <- partition_2(sortTemp = partSort[[i]], curr = secpos, minElements = minElements, sortByWeights = sortByWeights)
 					temp2 <- joinSmall(partSort = temp2, minElements = minElements, sortByWeights = sortByWeights)
 					li <- c(li, temp2)
 				}
@@ -275,6 +279,7 @@ joinSmall <- function(partSort, minElements, sortByWeights){
 #' @param data the data for computing mutual information. Either a DLData object
 #'   or a data.frame; In the latter case, the symbols of the alphabet must be
 #'   provided as a second parameter
+#' @param alphabet only required when called on a data.frame
 #' @param ... the symbols of the alphabet as character vector, only if data is a
 #'   data.frame
 #'   
@@ -292,10 +297,14 @@ getDeps <- function(data, ...){
 	UseMethod("getDeps",data)
 }
 
+#' @export
+#' @rdname getDeps
 getDeps.DLData <- function(data, ...){
 	getDeps(data = data$data, alphabet = data$alphabet$chars)
 }
 
+#' @export
+#' @rdname getDeps
 getDeps.data.frame <- function(data, alphabet, ...){
 	x <- data[, -ncol(data)]
 	x <- data.frame(lapply(x, factor, levels=alphabet))
@@ -338,7 +347,8 @@ getInformation <- function(data, numBestForSorting, exclude, alphabet){
 	list(deps = vals, mis = mis)
 }
 
-partition.2 <- function(sortTemp, curr, minElements, sortByWeights){
+
+partition_2 <- function(sortTemp, curr, minElements, sortByWeights){
 	if(nrow(sortTemp)<minElements){
 		return(list(sortTemp))
 	}else{
@@ -783,10 +793,14 @@ plotBlocks <- function(data, show.number = TRUE, block.fun = deprects, ic.scale 
 	UseMethod("plotBlocks", data)
 }
 
+#' @export
+#' @rdname plotBlocks
 plotBlocks.DLData <- function(data, show.number = TRUE, block.fun = deprects, ic.scale = TRUE, add = FALSE, ...){
 	plotBlocks.list(data = list(data), show.number = show.number, block.fun = block.fun, ic.scale = ic.scale, add = add, ...)	
 }
 
+#' @export
+#' @rdname plotBlocks
 plotBlocks.list <- function(data, show.number = TRUE, block.fun = deprects, ic.scale = TRUE, add=FALSE, ...){
 	total <- sum(sapply(data, function(a){nrow(a$data)}))
 
@@ -908,6 +922,8 @@ plotDeplogo<-function(data,
 	UseMethod("plotDeplogo", data)
 }
 
+#' @export
+#' @rdname plotDeplogo
 plotDeplogo.DLData<-function(data,
 							dep.fun = plotDeparcs,
 							block.fun = deprects,
@@ -1094,11 +1110,12 @@ subBoxes <- function(sub.parts, range, axis.above = TRUE, axis.below = TRUE){
 	}
 }
 
-
+#' @export
 length.DLData <- function(x){
 	nrow(x$data)
 }
 
+#' @export
 dim.DLData <- function(x){
 	dim(x$data)
 }
@@ -1134,7 +1151,6 @@ dim.DLData <- function(x){
 #'   
 #' @return the \code{DLData} object
 #' @export
-#' @exportClass DLData
 #' @seealso \link{plotDeplogo}
 #' @author Jan Grau <grau@informatik.uni-halle.de>
 #'   
@@ -1165,14 +1181,14 @@ DLData<-function(sequences,
 				 sortByWeights = !is.null(weights),
 				 axis.labels = NULL){
 	sortByWeights <- sortByWeights
-	if(class(sequences)=="character"){
+	if(inherits(sequences,"character")){
 		if( length( unique(sapply(sequences,nchar)) ) != 1 ){
 			stop("All sequences must have the same length.");
 		}
 		
 		seqs <- t(sapply(sequences, function(a){strsplit(a, delim)[[1]]}))
 		rownames(seqs) <- NULL
-	}else if(class(sequences)=="data.frame"){
+	}else if(inherits(sequences,"data.frame")){
 		seqs <- as.matrix(sequences)
 	}else{
 		stop("Only data.frames or character vectors allowed.")
@@ -1201,9 +1217,9 @@ DLData<-function(sequences,
 }
 
 
-
+#' @export
 summary.list <- function(object, delete.gaps = FALSE, ...){
-	if(length(object)>0 & length(unique(sapply(object, class))) ==1 & class(object[[1]]) == "DLData"){
+	if(length(object)>0 & length(unique(sapply(object, class))) ==1 & inherits(object[[1]],"DLData")){
 		df<-c();
 		for(el in object){
 			df<-rbind(df,data.frame(summary(el, delete.gaps = delete.gaps, ...), stringsAsFactors = FALSE), stringsAsFactors = FALSE)
@@ -1375,6 +1391,7 @@ filterColumns <- function(data, filter.fun){
 	UseMethod("filterColumns", data)
 }
 
+#' @export
 filterColumns.DLData<-function(data, filter.fun){
 	ax.lab <- data$axis.labels
 	if(is.null(ax.lab)){
@@ -1423,6 +1440,8 @@ suggestColors <- function(data){
 	UseMethod("suggestColors", data)
 }
 
+#' @export
+#' @rdname suggestColors
 suggestColors.DLData <- function(data){
 	syms <- data$alphabet$chars
 	deps <- getDeps(data)
@@ -1473,7 +1492,8 @@ replaceColors <- function(data, colors){
 	UseMethod("replaceColors", data)
 }
 
-
+#' @export
+#' @rdname replaceColors
 replaceColors.DLData <- function(data, colors){
 	if(length(colors) != length(data$alphabet$cols)){
 		stop("Number of colors does not match the number of symbols.")
@@ -1500,6 +1520,8 @@ revcom<-function(data){
 	UseMethod("revcom",data)
 }
 
+#' @export
+#' @rdname revcom
 revcom.DLData <- function(data){
 	alphabets<-list(
 		dna = c("A" = "T", "C" = "G", "G" = "C", "T" = "A"),

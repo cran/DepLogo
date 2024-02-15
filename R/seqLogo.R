@@ -260,7 +260,7 @@ informationContent<-function (p)
 
 
 
-plot.minlogo<-function(pwm,sparse,alphabet){
+plot_minlogo<-function(pwm,sparse,alphabet){
 	letters = list(x = NULL, y = NULL, id = NULL, fill = NULL)
 	npos = ncol(pwm)
 	ylim.negMax = 0

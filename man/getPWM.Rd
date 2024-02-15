@@ -2,9 +2,12 @@
 % Please edit documentation in R/DepLogoR.R
 \name{getPWM}
 \alias{getPWM}
+\alias{getPWM.DLData}
 \title{Position weight matrix from DLData object}
 \usage{
 getPWM(part)
+
+\method{getPWM}{DLData}(part)
 }
 \arguments{
 \item{part}{the DLData object}

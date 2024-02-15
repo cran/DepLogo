@@ -2,9 +2,15 @@
 % Please edit documentation in R/DepLogoR.R
 \name{getDeps}
 \alias{getDeps}
+\alias{getDeps.DLData}
+\alias{getDeps.data.frame}
 \title{Compute dependencies between positions}
 \usage{
 getDeps(data, ...)
+
+\method{getDeps}{DLData}(data, ...)
+
+\method{getDeps}{data.frame}(data, alphabet, ...)
 }
 \arguments{
 \item{data}{the data for computing mutual information. Either a DLData object
@@ -13,6 +19,8 @@ provided as a second parameter}
 
 \item{...}{the symbols of the alphabet as character vector, only if data is a
 data.frame}
+
+\item{alphabet}{only required when called on a data.frame}
 }
 \value{
 a matrix of the mutual information values, where the diagonal is

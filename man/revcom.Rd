@@ -2,9 +2,12 @@
 % Please edit documentation in R/DepLogoR.R
 \name{revcom}
 \alias{revcom}
+\alias{revcom.DLData}
 \title{Reverse complement}
 \usage{
 revcom(data)
+
+\method{revcom}{DLData}(data)
 }
 \arguments{
 \item{data}{the data}
